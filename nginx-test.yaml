@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nginx-test
-        image: 73936289280.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:latest
+        image: 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:latest
       nodeSelector:
         alpha.eksctl.io/nodegroup-name: nodegroup-web

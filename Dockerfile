@@ -1,2 +1,2 @@
-FROM nginx:stable
+FROM nginx:latest
 EXPOSE 80

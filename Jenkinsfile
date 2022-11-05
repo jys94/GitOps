@@ -3,13 +3,13 @@ node {
         checkout scm
     }
     stage('Build image') {
-        app = docker.build("73936289280.dkr.ecr.ap-northeast-2.amazonaws.com/nginx")
+        app = docker.build("739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx")
     }
     stage('Push image') {
         sh 'rm ~/.dockercfg || true'
         sh 'rm ~/.docker/config.json || true'
 
-        docker.withRegistry('https://73936289280.dkr.ecr.ap-northeast-2.amazonaws.com', 'ecr:ap-northeast-2:jenkins-ecr-access-credential') {
+        docker.withRegistry('https://739362892804.dkr.ecr.ap-northeast-2.amazonaws.com', 'ecr:ap-northeast-2:jenkins-ecr-access-credential') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
