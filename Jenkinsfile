@@ -17,6 +17,7 @@ pipeline {
         sh '''
         docker pull nginx
         docker tag nginx:latest 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:latest
+        aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com
         docker push 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:latest
         kubectl apply -f ./
         '''
