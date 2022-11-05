@@ -16,4 +16,7 @@ node {
       app.push("latest")
     }
   }
+  stage('Push image') {
+    kubectl apply -f nginx-test.yaml
+  }
 }
