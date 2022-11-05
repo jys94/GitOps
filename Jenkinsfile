@@ -1,6 +1,3 @@
-app = docker.build("73936289280.dkr.ecr.ap-northeast-2.amazonaws.com/nginx")
-docker.withRegistry('https://73936289280.dkr.ecr.ap-northeast-2.amazonaws.com', 'ecr:ap-northeast-2:jenkins-ecr-access-credential')
-
 node {
     stage('Clone repository') {
         checkout scm
