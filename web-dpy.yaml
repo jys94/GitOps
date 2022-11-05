@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: echo-hname
+  name: nginx
   labels:
     app: nginx
 spec:
@@ -15,7 +15,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - name: echo-hname
+      - name: nginx
         image: 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:v1
       nodeSelector:
         alpha.eksctl.io/nodegroup-name: nodegroup-web
