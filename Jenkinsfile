@@ -5,13 +5,13 @@ pipeline {
       steps {
         git url: 'https://github.com/jys94/GitOps.git', branch: 'Test'
       }
+    }
     stage('docker build'){
       steps {
         sh '''
         docker build -t nginx .
         '''
       }
-    }
     }
   }
 }
