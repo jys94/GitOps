@@ -8,9 +8,6 @@ node {
   stage('git pull') {
     git url: 'https://github.com/jys94/GitOps.git', branch: 'Slack'
   }
-  stage('Pull image') {
-    sh 'docker pull 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:latest'
-  }
   stage('Push image') {
     sh 'rm ~/.dockercfg || true'
     sh 'rm ~/.docker/config.json || true'
