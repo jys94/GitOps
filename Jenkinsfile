@@ -16,7 +16,11 @@ node {
     sh 'rm ~/.docker/config.json || true'
 
     docker.withRegistry('https://739362892804.dkr.ecr.ap-northeast-2.amazonaws.com', 'ecr:ap-northeast-2:jenkins-ecr-access-credential') {
-      docker.image("739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:latest").push("push")
+      sh '''
+      docker pull 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:latest'
+      docker tag 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:latest 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:v1
+      docker push 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:v1
+      '''
     }
   }
   stage('k8s deploy') {

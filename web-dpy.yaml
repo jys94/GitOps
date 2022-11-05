@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: echo-hname
-        image: 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:latest
+        image: 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:v1
       nodeSelector:
         alpha.eksctl.io/nodegroup-name: nodegroup-web
