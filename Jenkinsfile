@@ -2,6 +2,11 @@ node {
     stage('Clone repository') {
         checkout scm
     }
+    stage('git pull') {
+      steps {
+        git url: 'https://github.com/jys94/GitOps.git', branch: 'Test'
+      }
+    }
     stage('Build image') {
         app = docker.build("739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx")
     }
@@ -14,21 +19,4 @@ node {
             app.push("latest")
         }
     }
-}
-pipeline {
-  agent any
-  stages {
-    stage('git pull') {
-      steps {
-        git url: 'https://github.com/jys94/GitOps.git', branch: 'Test'
-      }
-    }
-    stage('k8s deploy'){
-      steps {
-        sh '''
-        kubectl apply -f nginx-test.yaml
-        '''
-      }
-    }
-  }
 }
