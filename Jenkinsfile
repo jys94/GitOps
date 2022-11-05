@@ -9,7 +9,7 @@ node {
     git url: 'https://github.com/jys94/GitOps.git', branch: 'Slack'
   }
   stage('Pull image') {
-    docker pull 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx
+    sh 'docker pull 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx'
   }
   stage('Push image') {
     sh 'rm ~/.dockercfg || true'
