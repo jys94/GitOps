@@ -15,7 +15,6 @@ node {
         sh 'rm ~/.docker/config.json || true'
 
         docker.withRegistry('https://739362892804.dkr.ecr.ap-northeast-2.amazonaws.com', 'ecr:ap-northeast-2:jenkins-ecr-access-credential') {
-            app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
     }
