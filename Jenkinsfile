@@ -1,33 +1,29 @@
-pipeline {
-  agent any
-  stages {
-    stage('deploy start') {
-      steps {
-        slackSend(message: "Deploy ${env.BUILD_NUMBER} Started"
-        , color: 'good', tokenCredentialId: 'slack-key')
-      }
-    }      
-    stage('git pull') {
-      steps {
-        git url: 'https://github.com/jys94/GitOps.git', branch: 'Slack'
-      }
+node {
+  stage('Clone repository') {
+    slackSend(message: "Deploy ${env.BUILD_NUMBER} Started", color: 'good', tokenCredentialId: 'slack-key')
+  }
+  stage('Clone repository') {
+    checkout scm
+  }
+  stage('git pull') {
+    git url: 'https://github.com/jys94/GitOps.git', branch: 'Slack'
+  }
+  stage('Pull image') {
+    docker pull 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx
+  }
+  stage('Push image') {
+    sh 'rm ~/.dockercfg || true'
+    sh 'rm ~/.docker/config.json || true'
+
+    docker.withRegistry('https://739362892804.dkr.ecr.ap-northeast-2.amazonaws.com', 'ecr:ap-northeast-2:jenkins-ecr-access-credential') {
+      app.push("v1")
     }
-    stage('k8s deploy'){
-      steps {
-        sh '''
-        docker pull nginx
-        docker tag nginx:latest 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:latest
-        aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com
-        docker push 739362892804.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:latest
-        kubectl apply -f ./
-        '''
-      }
-    }
-    stage('deploy end') {
-      steps {
-        slackSend(message: """${env.JOB_NAME} #${env.BUILD_NUMBER} End
-        """, color: 'good', tokenCredentialId: 'slack-key')
-      }
-    }
+  }
+  stage('k8s deploy') {
+    sh 'kubectl apply -f web-dpy.yaml'
+  }
+  stage('deploy end') {
+    slackSend(message: """${env.JOB_NAME} #${env.BUILD_NUMBER} End
+    """, color: 'good', tokenCredentialId: 'slack-key')
   }
 }
