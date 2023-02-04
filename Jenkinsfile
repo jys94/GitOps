@@ -12,7 +12,7 @@ node {
     sh 'rm ~/.dockercfg || true'
     sh 'rm ~/.docker/config.json || true'
 
-    docker.withRegistry('675936114596.dkr.ecr.ap-northeast-2.amazonaws.com/nginx', 'ecr:ap-northeast-2:jenkins-ecr-access-credential') {
+    docker.withRegistry('https://675936114596.dkr.ecr.ap-northeast-2.amazonaws.com/nginx', 'ecr:ap-northeast-2:jenkins-ecr-access-credential') {
       app.push("latest")
     }
   }
