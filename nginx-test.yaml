@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nginx
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: nginx
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nginx-test
-        image: 675936114596.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:latest
+        image: 117612009356.dkr.ecr.ap-northeast-2.amazonaws.com/nginx:latest
       nodeSelector:
         eks.amazonaws.com/nodegroup: nodegroup-web
